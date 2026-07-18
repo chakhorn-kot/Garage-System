@@ -19,10 +19,54 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.04em;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--brand-red) !important;
   box-shadow: 0 0 0 1px var(--brand-red);
+}
+
+/* Garage-style decorative textures */
+
+.bg-carbon {
+  background-color: #0a0a0a;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.045) 0,
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px,
+      transparent 9px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.045) 0,
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px,
+      transparent 9px
+    );
+}
+
+.bg-hazard-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--brand-red),
+    var(--brand-red) 12px,
+    #0a0a0a 12px,
+    #0a0a0a 24px
+  );
+}
+
+.bg-blueprint-grid {
+  background-color: #0a0a0a;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
 }

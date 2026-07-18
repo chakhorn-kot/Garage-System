@@ -32,19 +32,19 @@ export default async function DashboardPage() {
       <div className="mb-8 grid grid-cols-3 gap-4">
         <div className="rounded-lg border border-black/10 p-5">
           <p className="text-sm text-neutral-500">งานที่กำลังดำเนินการ</p>
-          <p className="mt-1 text-3xl font-semibold text-black">
+          <p className="font-display mt-1 text-4xl text-black">
             {activeJobs ?? 0}
           </p>
         </div>
         <div className="rounded-lg border border-black/10 p-5">
           <p className="text-sm text-neutral-500">อะไหล่ใกล้หมด</p>
-          <p className="mt-1 text-3xl font-semibold text-red-600">
+          <p className="font-display mt-1 text-4xl text-red-600">
             {lowStock.length}
           </p>
         </div>
         <div className="rounded-lg border border-black/10 p-5">
           <p className="text-sm text-neutral-500">งานช่างที่ยังไม่เสร็จ</p>
-          <p className="mt-1 text-3xl font-semibold text-black">
+          <p className="font-display mt-1 text-4xl text-black">
             {openAssignments?.length ?? 0}
           </p>
         </div>
