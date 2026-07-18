@@ -27,29 +27,30 @@ export default async function AppLayout({
 
   return (
     <div className="flex min-h-screen">
-      <aside className="flex w-56 shrink-0 flex-col border-r border-neutral-200 bg-neutral-50 p-4">
-        <h1 className="mb-6 text-lg font-semibold text-neutral-900">
-          อู่ซ่อมรถ
+      <aside className="flex w-56 shrink-0 flex-col bg-black p-4">
+        <h1 className="mb-6 flex items-center gap-2 text-lg font-semibold text-white">
+          <span className="h-2.5 w-2.5 rounded-full bg-red-600" />
+          OakGarage
         </h1>
         <nav className="flex flex-1 flex-col gap-1">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-md px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-200"
+              className="rounded-md px-3 py-2 text-sm text-neutral-300 transition-colors hover:bg-red-600 hover:text-white"
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="mt-auto border-t border-neutral-200 pt-4">
-          <p className="mb-2 truncate text-xs text-neutral-500">
+        <div className="mt-auto border-t border-neutral-800 pt-4">
+          <p className="mb-2 truncate text-xs text-neutral-400">
             {user.email}
           </p>
           <SignOutButton />
         </div>
       </aside>
-      <main className="flex-1 overflow-auto p-8">{children}</main>
+      <main className="flex-1 overflow-auto bg-white p-8">{children}</main>
     </div>
   );
 }

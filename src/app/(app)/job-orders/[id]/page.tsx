@@ -1,7 +1,18 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { Technician, Part, JobAssignment, JobOrderPart } from "@/types/db";
-import { JOB_STATUS_LABEL, ASSIGNMENT_STATUS_LABEL } from "@/types/db";
+import type {
+  Technician,
+  Part,
+  JobAssignment,
+  JobOrderPart,
+  JobStatus,
+} from "@/types/db";
+import {
+  JOB_STATUS_LABEL,
+  ASSIGNMENT_STATUS_LABEL,
+  JOB_STATUS_COLOR,
+  ASSIGNMENT_STATUS_COLOR,
+} from "@/types/db";
 import {
   updateJobOrderStatus,
   assignTechnician,
@@ -54,9 +65,19 @@ export default async function JobOrderDetailPage({
     <div>
       <div className="mb-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-neutral-900">
-            {jobOrder.vehicles?.license_plate}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-semibold text-black">
+              {jobOrder.vehicles?.license_plate}
+            </h1>
+            <span
+              className={
+                "rounded-full px-2.5 py-1 text-xs font-medium " +
+                JOB_STATUS_COLOR[jobOrder.status as JobStatus]
+              }
+            >
+              {JOB_STATUS_LABEL[jobOrder.status as JobStatus]}
+            </span>
+          </div>
           <p className="text-sm text-neutral-500">
             {jobOrder.vehicles?.brand} {jobOrder.vehicles?.model} ·{" "}
             {jobOrder.vehicles?.customers?.name} ·{" "}
@@ -81,7 +102,7 @@ export default async function JobOrderDetailPage({
               </option>
             ))}
           </select>
-          <button className="rounded-md bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+          <button className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700">
             อัปเดตสถานะ
           </button>
         </form>
@@ -89,8 +110,8 @@ export default async function JobOrderDetailPage({
 
       <div className="grid grid-cols-2 gap-6">
         {/* Technician assignment / tracking */}
-        <div className="rounded-lg border border-neutral-200 p-5">
-          <h2 className="mb-3 font-semibold text-neutral-900">มอบหมายช่าง</h2>
+        <div className="rounded-lg border border-black/10 p-5">
+          <h2 className="mb-3 font-semibold text-black">มอบหมายช่าง</h2>
 
           <form action={assignTechnician} className="mb-4 space-y-2">
             <input type="hidden" name="job_order_id" value={jobOrder.id} />
@@ -111,7 +132,7 @@ export default async function JobOrderDetailPage({
               placeholder="รายละเอียดงาน"
               className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm"
             />
-            <button className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-100">
+            <button className="w-full rounded-md border border-black px-3 py-2 text-sm text-black transition-colors hover:bg-black hover:text-white">
               มอบหมายงาน
             </button>
           </form>
@@ -120,10 +141,20 @@ export default async function JobOrderDetailPage({
             {(assignments ?? []).map((a: JobAssignment) => (
               <li
                 key={a.id}
-                className="flex items-center justify-between rounded-md bg-neutral-50 px-3 py-2 text-sm"
+                className="flex items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-sm"
               >
                 <div>
-                  <p className="text-neutral-800">{a.technicians?.name}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-black">{a.technicians?.name}</p>
+                    <span
+                      className={
+                        "rounded-full px-2 py-0.5 text-[10px] font-medium " +
+                        ASSIGNMENT_STATUS_COLOR[a.status]
+                      }
+                    >
+                      {ASSIGNMENT_STATUS_LABEL[a.status]}
+                    </span>
+                  </div>
                   <p className="text-xs text-neutral-500">
                     {a.task_description ?? "งานซ่อม"}
                   </p>
@@ -145,7 +176,7 @@ export default async function JobOrderDetailPage({
                       )
                     )}
                   </select>
-                  <button className="rounded-md border border-neutral-300 px-2 py-1 text-xs hover:bg-neutral-100">
+                  <button className="rounded-md border border-black px-2 py-1 text-xs text-black transition-colors hover:bg-black hover:text-white">
                     อัปเดต
                   </button>
                 </form>
@@ -158,8 +189,8 @@ export default async function JobOrderDetailPage({
         </div>
 
         {/* Parts used tracking */}
-        <div className="rounded-lg border border-neutral-200 p-5">
-          <h2 className="mb-3 font-semibold text-neutral-900">อะไหล่ที่ใช้</h2>
+        <div className="rounded-lg border border-black/10 p-5">
+          <h2 className="mb-3 font-semibold text-black">อะไหล่ที่ใช้</h2>
 
           <form action={addJobOrderPart} className="mb-4 flex gap-2">
             <input type="hidden" name="job_order_id" value={jobOrder.id} />
@@ -182,7 +213,7 @@ export default async function JobOrderDetailPage({
               placeholder="จำนวน"
               className="w-24 rounded-md border border-neutral-300 px-3 py-2 text-sm"
             />
-            <button className="rounded-md border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-100">
+            <button className="rounded-md border border-black px-3 py-2 text-sm text-black transition-colors hover:bg-black hover:text-white">
               เบิกใช้
             </button>
           </form>
@@ -191,9 +222,9 @@ export default async function JobOrderDetailPage({
             {(usedParts ?? []).map((up: JobOrderPart) => (
               <li
                 key={up.id}
-                className="flex justify-between rounded-md bg-neutral-50 px-3 py-2 text-sm"
+                className="flex justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-sm"
               >
-                <span className="text-neutral-800">
+                <span className="text-black">
                   {up.parts?.name} x {up.quantity} {up.parts?.unit}
                 </span>
                 <span className="text-neutral-600">
@@ -207,7 +238,7 @@ export default async function JobOrderDetailPage({
           </ul>
 
           {usedParts && usedParts.length > 0 && (
-            <div className="mt-3 flex justify-between border-t border-neutral-200 pt-3 text-sm font-medium text-neutral-900">
+            <div className="mt-3 flex justify-between border-t border-black/10 pt-3 text-sm font-medium text-black">
               <span>รวมค่าอะไหล่</span>
               <span>{partsCost.toLocaleString()} บาท</span>
             </div>

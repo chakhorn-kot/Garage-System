@@ -116,3 +116,18 @@ export const ASSIGNMENT_STATUS_LABEL: Record<AssignmentStatus, string> = {
   in_progress: "กำลังทำ",
   done: "เสร็จแล้ว",
 };
+
+export const JOB_STATUS_COLOR: Record<JobStatus, string> = {
+  received: "bg-neutral-100 text-black",
+  in_progress: "bg-red-600 text-white",
+  waiting_qc: "bg-black text-white",
+  completed: "bg-black text-white",
+  delivered: "bg-neutral-100 text-black",
+  cancelled: "bg-neutral-100 text-neutral-400 line-through",
+};
+
+export const ASSIGNMENT_STATUS_COLOR: Record<AssignmentStatus, string> = {
+  pending: "bg-neutral-100 text-black",
+  in_progress: "bg-red-600 text-white",
+  done: "bg-black text-white",
+};

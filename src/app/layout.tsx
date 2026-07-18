@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ระบบบริหารอู่ซ่อมรถ",
-  description: "ระบบบริหารจัดการอู่ซ่อมรถ - ใบสั่งซ่อม, อะไหล่, ช่าง",
+  title: "OakGarage - ระบบบริหารอู่ซ่อมรถ",
+  description: "ระบบบริหารจัดการอู่ซ่อมรถ OakGarage - ใบสั่งซ่อม, อะไหล่, ช่าง",
 };
 
 export default function RootLayout({

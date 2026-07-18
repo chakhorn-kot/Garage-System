@@ -21,9 +21,9 @@ export default async function PartsPage() {
   return (
     <div>
       <div className="mb-6 flex items-baseline justify-between">
-        <h1 className="text-2xl font-semibold text-neutral-900">คลังอะไหล่</h1>
+        <h1 className="text-2xl font-semibold text-black">คลังอะไหล่</h1>
         {lowStockCount > 0 && (
-          <span className="rounded-full bg-red-50 px-3 py-1 text-sm font-medium text-red-600">
+          <span className="rounded-full bg-red-600 px-3 py-1 text-sm font-medium text-white">
             ใกล้หมด {lowStockCount} รายการ
           </span>
         )}
@@ -32,9 +32,9 @@ export default async function PartsPage() {
       <div className="mb-8 grid grid-cols-3 gap-6">
         <form
           action={createPart}
-          className="col-span-2 grid grid-cols-2 gap-3 rounded-lg border border-neutral-200 p-5"
+          className="col-span-2 grid grid-cols-2 gap-3 rounded-lg border border-black/10 p-5"
         >
-          <h2 className="col-span-2 font-semibold text-neutral-900">
+          <h2 className="col-span-2 font-semibold text-black">
             เพิ่มอะไหล่ใหม่
           </h2>
           <input
@@ -94,13 +94,13 @@ export default async function PartsPage() {
             placeholder="จุดสั่งซื้อขั้นต่ำ"
             className="rounded-md border border-neutral-300 px-3 py-2 text-sm"
           />
-          <button className="col-span-2 rounded-md bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+          <button className="col-span-2 rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700">
             บันทึกอะไหล่
           </button>
         </form>
 
-        <div className="rounded-lg border border-neutral-200 p-5">
-          <h2 className="mb-3 font-semibold text-neutral-900">
+        <div className="rounded-lg border border-black/10 p-5">
+          <h2 className="mb-3 font-semibold text-black">
             ความเคลื่อนไหวล่าสุด
           </h2>
           <ul className="space-y-2 text-sm">
@@ -128,7 +128,7 @@ export default async function PartsPage() {
 
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-neutral-200 text-left text-neutral-500">
+          <tr className="border-b border-black/10 text-left text-neutral-500">
             <th className="pb-2 font-medium">ชื่ออะไหล่</th>
             <th className="pb-2 font-medium">หมวดหมู่</th>
             <th className="pb-2 font-medium">คงเหลือ</th>
@@ -142,7 +142,7 @@ export default async function PartsPage() {
             const low = p.quantity_on_hand <= p.reorder_point;
             return (
               <tr key={p.id} className="border-b border-neutral-100">
-                <td className="py-2.5 text-neutral-900">
+                <td className="py-2.5 text-black">
                   {p.name}
                   {p.sku && (
                     <span className="ml-2 text-xs text-neutral-400">
@@ -156,7 +156,7 @@ export default async function PartsPage() {
                 <td
                   className={
                     "py-2.5 font-medium " +
-                    (low ? "text-red-600" : "text-neutral-900")
+                    (low ? "text-red-600" : "text-black")
                   }
                 >
                   {p.quantity_on_hand} {p.unit}
@@ -175,7 +175,7 @@ export default async function PartsPage() {
                       placeholder="จำนวน"
                       className="w-20 rounded-md border border-neutral-300 px-2 py-1 text-xs"
                     />
-                    <button className="rounded-md border border-neutral-300 px-2 py-1 text-xs hover:bg-neutral-100">
+                    <button className="rounded-md border border-black px-2 py-1 text-xs text-black transition-colors hover:bg-black hover:text-white">
                       รับเข้า
                     </button>
                   </form>

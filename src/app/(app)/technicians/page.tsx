@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Technician, JobAssignment } from "@/types/db";
-import { ASSIGNMENT_STATUS_LABEL } from "@/types/db";
+import { ASSIGNMENT_STATUS_LABEL, ASSIGNMENT_STATUS_COLOR } from "@/types/db";
 import { createTechnician, updateAssignmentStatus } from "../actions";
 
 export default async function TechniciansPage() {
@@ -24,15 +24,15 @@ export default async function TechniciansPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-semibold text-neutral-900">
+      <h1 className="mb-6 text-2xl font-semibold text-black">
         ติดตามงานช่าง
       </h1>
 
       <form
         action={createTechnician}
-        className="mb-8 grid grid-cols-4 gap-3 rounded-lg border border-neutral-200 p-5"
+        className="mb-8 grid grid-cols-4 gap-3 rounded-lg border border-black/10 p-5"
       >
-        <h2 className="col-span-4 font-semibold text-neutral-900">
+        <h2 className="col-span-4 font-semibold text-black">
           เพิ่มช่างใหม่
         </h2>
         <input
@@ -51,7 +51,7 @@ export default async function TechniciansPage() {
           placeholder="ความชำนาญ"
           className="rounded-md border border-neutral-300 px-3 py-2 text-sm"
         />
-        <button className="rounded-md bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+        <button className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700">
           บันทึก
         </button>
       </form>
@@ -60,9 +60,9 @@ export default async function TechniciansPage() {
         {(technicians ?? []).map((t: Technician) => {
           const jobs = assignmentsByTech.get(t.id) ?? [];
           return (
-            <div key={t.id} className="rounded-lg border border-neutral-200 p-4">
+            <div key={t.id} className="rounded-lg border border-black/10 p-4">
               <div className="mb-3 flex items-baseline justify-between">
-                <h3 className="font-semibold text-neutral-900">{t.name}</h3>
+                <h3 className="font-semibold text-black">{t.name}</h3>
                 <span className="text-xs text-neutral-500">
                   {t.specialty ?? "-"}
                 </span>
@@ -75,12 +75,22 @@ export default async function TechniciansPage() {
                   {jobs.map((a) => (
                     <li
                       key={a.id}
-                      className="flex items-center justify-between rounded-md bg-neutral-50 px-3 py-2 text-sm"
+                      className="flex items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-sm"
                     >
                       <div>
-                        <p className="text-neutral-800">
-                          {a.job_orders?.vehicles?.license_plate ?? "-"}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-black">
+                            {a.job_orders?.vehicles?.license_plate ?? "-"}
+                          </p>
+                          <span
+                            className={
+                              "rounded-full px-2 py-0.5 text-[10px] font-medium " +
+                              ASSIGNMENT_STATUS_COLOR[a.status]
+                            }
+                          >
+                            {ASSIGNMENT_STATUS_LABEL[a.status]}
+                          </span>
+                        </div>
                         <p className="text-xs text-neutral-500">
                           {a.task_description ?? "งานซ่อม"}
                         </p>
@@ -106,7 +116,7 @@ export default async function TechniciansPage() {
                             )
                           )}
                         </select>
-                        <button className="rounded-md border border-neutral-300 px-2 py-1 text-xs hover:bg-neutral-100">
+                        <button className="rounded-md border border-black px-2 py-1 text-xs text-black transition-colors hover:bg-black hover:text-white">
                           อัปเดต
                         </button>
                       </form>

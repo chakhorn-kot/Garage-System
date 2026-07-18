@@ -19,16 +19,16 @@ export default async function CustomersPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-semibold text-neutral-900">
+      <h1 className="mb-6 text-2xl font-semibold text-black">
         ลูกค้า & รถ
       </h1>
 
       <div className="mb-8 grid grid-cols-2 gap-6">
         <form
           action={createCustomer}
-          className="space-y-3 rounded-lg border border-neutral-200 p-5"
+          className="space-y-3 rounded-lg border border-black/10 p-5"
         >
-          <h2 className="font-semibold text-neutral-900">เพิ่มลูกค้าใหม่</h2>
+          <h2 className="font-semibold text-black">เพิ่มลูกค้าใหม่</h2>
           <input
             name="name"
             required
@@ -50,16 +50,16 @@ export default async function CustomersPage() {
             placeholder="ที่อยู่"
             className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm"
           />
-          <button className="rounded-md bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+          <button className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700">
             บันทึกลูกค้า
           </button>
         </form>
 
         <form
           action={createVehicle}
-          className="space-y-3 rounded-lg border border-neutral-200 p-5"
+          className="space-y-3 rounded-lg border border-black/10 p-5"
         >
-          <h2 className="font-semibold text-neutral-900">เพิ่มรถ</h2>
+          <h2 className="font-semibold text-black">เพิ่มรถ</h2>
           <select
             name="customer_id"
             required
@@ -103,7 +103,7 @@ export default async function CustomersPage() {
               className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm"
             />
           </div>
-          <button className="rounded-md bg-neutral-900 px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800">
+          <button className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700">
             บันทึกรถ
           </button>
         </form>
@@ -111,9 +111,9 @@ export default async function CustomersPage() {
 
       <div className="space-y-4">
         {(customers ?? []).map((c: Customer) => (
-          <div key={c.id} className="rounded-lg border border-neutral-200 p-4">
+          <div key={c.id} className="rounded-lg border border-black/10 p-4">
             <div className="flex items-baseline justify-between">
-              <h3 className="font-semibold text-neutral-900">{c.name}</h3>
+              <h3 className="font-semibold text-black">{c.name}</h3>
               <span className="text-sm text-neutral-500">{c.phone}</span>
             </div>
             <div className="mt-2 space-y-1">
