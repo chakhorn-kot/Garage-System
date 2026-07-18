@@ -111,7 +111,7 @@ export default async function CustomersPage() {
 
       <div className="space-y-4">
         {(customers ?? []).map((c: Customer) => (
-          <div key={c.id} className="rounded-lg border border-black/10 p-4">
+          <div key={c.id} className="card-hover rounded-lg border border-black/10 p-4">
             <div className="flex items-baseline justify-between">
               <h3 className="font-semibold text-black">{c.name}</h3>
               <span className="text-sm text-neutral-500">{c.phone}</span>

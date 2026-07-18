@@ -60,7 +60,7 @@ export default async function TechniciansPage() {
         {(technicians ?? []).map((t: Technician) => {
           const jobs = assignmentsByTech.get(t.id) ?? [];
           return (
-            <div key={t.id} className="rounded-lg border border-black/10 p-4">
+            <div key={t.id} className="card-hover rounded-lg border border-black/10 p-4">
               <div className="mb-3 flex items-baseline justify-between">
                 <h3 className="font-semibold text-black">{t.name}</h3>
                 <span className="text-xs text-neutral-500">

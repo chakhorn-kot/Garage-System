@@ -2,13 +2,20 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "./sign-out-button";
+import {
+  IconDashboard,
+  IconWrench,
+  IconCustomers,
+  IconBox,
+  IconTechnician,
+} from "@/components/icons";
 
 const NAV_ITEMS = [
-  { href: "/", label: "แดชบอร์ด" },
-  { href: "/job-orders", label: "ใบสั่งซ่อม" },
-  { href: "/customers", label: "ลูกค้า & รถ" },
-  { href: "/parts", label: "คลังอะไหล่" },
-  { href: "/technicians", label: "ช่าง" },
+  { href: "/", label: "แดชบอร์ด", Icon: IconDashboard },
+  { href: "/job-orders", label: "ใบสั่งซ่อม", Icon: IconWrench },
+  { href: "/customers", label: "ลูกค้า & รถ", Icon: IconCustomers },
+  { href: "/parts", label: "คลังอะไหล่", Icon: IconBox },
+  { href: "/technicians", label: "ช่าง", Icon: IconTechnician },
 ];
 
 export default async function AppLayout({
@@ -39,8 +46,9 @@ export default async function AppLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-md px-3 py-2 text-sm text-neutral-300 transition-colors hover:bg-red-600 hover:text-white"
+                className="flex items-center gap-2.5 rounded-md px-3 py-2 text-sm text-neutral-300 transition-colors hover:bg-red-600 hover:text-white"
               >
+                <item.Icon className="h-4 w-4 shrink-0" />
                 {item.label}
               </Link>
             ))}
